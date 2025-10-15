@@ -133,7 +133,12 @@ def battle(player, wizard):
         if choice == '1':
             player.attack(wizard)
         elif choice == '2':
-            pass  # Implement special abilities
+            if isinstance(player, Jinzo):
+                ability = input("Choose ability: 1. Throw Shurikens 2. Tanuki-Gakure ")
+                if ability == "1":
+                    player.throw_shuriken(wizard)
+                else:
+                    player.tanuki_gakure()    
         elif choice == '3':
             pass  # Implement heal method
         elif choice == '4':
