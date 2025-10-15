@@ -69,7 +69,33 @@ class Jinzo(Character):
         print(f"{self.name} meditates in silence and heals {heal_amount} HP. Health: {self.health}/{self.max_health}")
 
 
-# Create Paladin class 
+class MikeTyson(Character):
+    def __init__(self, name):
+        super().__init__(name, health=200, attack_power=50)
+        self.defending = False
+
+    def super_uppercut(self, opponent):
+        """A devastating uppercut with bonus power."""
+        damage = self.attack_power + 30
+        opponent.health -= damage
+        print(f"{self.name} unleashes a SUPER UPPERCUT for {damage} damage!")
+
+    def peek_a_boo(self):
+        """Defensive move to reduce damage."""
+        self.defending = True
+        print(f"{self.name} uses the Peek-A-Boo defense stance!")
+
+    def take_damage(self, amount):
+        """Takes reduced damage if defending."""
+        if self.defending:
+            reduced = amount // 2
+            self.health -= reduced
+            self.defending = False
+            print(f"{self.name} blocks some of the attack using Peek-A-Boo! Taking only {reduced} damage.")
+        else:
+            self.health -= amount
+            print(f"{self.name} takes {amount} damage. Health is now {self.health}.")
+
 
 
 def create_character():
