@@ -35,6 +35,39 @@ class EvilWizard(Character):
         print(f"{self.name} regenerates 5 health! Current health: {self.health}")
 
 # Create Archer class
+class Jinzo(Character):
+    def __init__(self, name):
+        super().__init__(name, health=120, attack_power=20)
+        self.hidden = False  # Used for Tanuki-Gakure
+
+    def throw_shuriken(self, opponent):
+        """Launches a quick double shuriken attack."""
+        damage = self.attack_power * 2
+        opponent.health -= damage
+        print(f"{self.name} throws shurikens from the shadows for {damage} damage!")
+
+    def tanuki_gakure(self):
+        """Hides in shadows to avoid next attack."""
+        self.hidden = True
+        print(f"{self.name} uses Tanuki-Gakure and disappears into the shadows!")
+
+    def take_damage(self, amount):
+        """Overrides the normal damage logic."""
+        if self.hidden:
+            print(f"{self.name} evades the attack from the shadows!")
+            self.hidden = False
+        else:
+            self.health -= amount
+            print(f"{self.name} takes {amount} damage. Health is now {self.health}.")
+
+    def heal(self):
+        """Heals a small amount — ninja meditation."""
+        heal_amount = 10
+        self.health += heal_amount
+        if self.health > self.max_health:
+            self.health = self.max_health
+        print(f"{self.name} meditates in silence and heals {heal_amount} HP. Health: {self.health}/{self.max_health}")
+
 
 # Create Paladin class 
 
@@ -43,8 +76,8 @@ def create_character():
     print("Choose your character class:")
     print("1. Warrior")
     print("2. Mage")
-    print("3. Archer") #Potential Class Add on
-    print("4. Paladin")  #Potential Class Add on
+    print("3. Jinzo") #Potential Class Add on
+    print("4. Mike Tyson")  #Potential Class Add on
 
     class_choice = input("Enter the number of your class choice: ")
     name = input("Enter your character's name: ")
@@ -54,9 +87,9 @@ def create_character():
     elif class_choice == '2':
         return Mage(name)
     elif class_choice == '3':
-        pass  # Implement Archer class
+        return Jinzo(name)
     elif class_choice == '4':
-        pass  # Implement Paladin class
+        return MikeTyson(name)
     else:
         print("Invalid choice. Defaulting to Warrior.")
         return Warrior(name)
