@@ -32,6 +32,8 @@ class EvilWizard(Character):
 
     def regenerate(self):
         self.health += 5
+        if self.health > self.max_health:
+            self.health = self.max_health
         print(f"{self.name} regenerates 5 health! Current health: {self.health}")
 
 # Create Archer class
