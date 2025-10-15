@@ -132,30 +132,52 @@ def battle(player, wizard):
 
         if choice == '1':
             player.attack(wizard)
+        
         elif choice == '2':
             if isinstance(player, Jinzo):
                 ability = input("Choose ability: 1. Throw Shurikens 2. Tanuki-Gakure ")
-                if ability == "1":
+                if ability == '1':
                     player.throw_shuriken(wizard)
                 else:
-                    player.tanuki_gakure()    
+                    player.tanuki_gakure() 
+
+            elif isinstance(player, MikeTyson):
+                ability = input("Choose ability: 1. Super Uppercut 2. Peek-A-Boo ")   
+                if ability == '1':
+                    player.super_uppercut(wizard)
+                else:
+                    player.peek_a_boo()
+
+            else:
+                print("Your class doesn't have special abilities yet.")    
+
         elif choice == '3':
-            pass  # Implement heal method
+            if hasattr(player, "heal"):
+                player.heal()
+            else:
+                print(f"{player.name} cannot heal!")
+        
         elif choice == '4':
             player.display_stats()
         else:
             print("Invalid choice. Try again.")
 
+        #Wizards turn
         if wizard.health > 0:
             wizard.regenerate()
-            wizard.attack(player)
-
+            print("\n---Wizards Turn ---")
+            if hasattr(player, "take_damage"):
+                player.take_damage(wizard.attack_power)
+            else:
+                wizard.attack(player) 
         if player.health <= 0:
-            print(f"{player.name} has been defeated!")
+            print (f"{player.name} has been defeated!")
             break
+        if wizard.health <= 0:
+            print(f"{wizard.name} has been defeated by {player.name}!")           
 
-    if wizard.health <= 0:
-        print(f"The wizard {wizard.name} has been defeated by {player.name}!")
+        
+       
 
 def main():
     player = create_character()
